@@ -31,12 +31,14 @@ export const RegistrationForm = () => {
   });
 
   const onSubmit: SubmitHandler<OurSchema> = values => {
-    fetch('/api/register', {
+    const formData = new FormData();
+    formData.append('first', values.first);
+    formData.append('last', values.last);
+    formData.append('email', values.email);
+
+    fetch('/api/registerForm', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+      body: formData,
     })
       .then(response => response.json())
       .then(data => console.log(data));
